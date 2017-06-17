@@ -31,12 +31,21 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.65",
+    "@types/react-router-dom": "^4.0.4",
+    "@types/redux-form": "^6.6.2",
+    "@types/redux-promise": "^0.5.24",
+    "axios": "^0.16.2",
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^3.10.1",
     "react": "^0.14.9",
     "react-dom": "^0.14.9",
     "react-redux": "^4.3.0",
     "react-router": "^2.0.1",
-    "redux": "^3.6.0"
+    "react-router-dom": "^4.0.0",
+    "redux": "^3.6.0",
+    "redux-form": "^6.7.0",
+    "redux-promise": "^0.5.3"
   }
 }
