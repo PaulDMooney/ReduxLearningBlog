@@ -20,6 +20,7 @@ export type fetchPostsType = () => any
 export function fetchPosts():any {
     const request = axios.get(`${ROOT_URL}/posts${API_KEY}`)
     
+    // Thunk style. The action payload is resolved here.
     return (dispatch:any) => {
         request.then(
             response => {
@@ -51,13 +52,6 @@ export function createPost(post:BlogPost, cb:() => void):any {
             }
         )
     }
-    //     .then(() => cb());
-
-    // return {
-    //     type: CREATE_POST,
-    //     payload: request
-    // }
-
     
 }
 
@@ -67,6 +61,8 @@ export function fetchPost(id:string):Action<Promise<any>> {
 
     const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`)
 
+    // Redux Promise style. The payload is a promise, which is resolved by the time it
+    // gets to the reducer, however the reducer still has to know the shape of the Ajax response
     return {
         type: FETCH_POST,
         payload: request
