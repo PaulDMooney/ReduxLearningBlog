@@ -15,34 +15,50 @@ export interface Action<PayloadType> {
     payload:PayloadType
 }
 
-export type fetchPostsType = () => Action<AxiosPromise>
+export type fetchPostsType = () => any
 
 export function fetchPosts():any {
     const request = axios.get(`${ROOT_URL}/posts${API_KEY}`)
-    return {
-        type: FETCH_POSTS,
-        payload: request
+    
+    return (dispatch:any) => {
+        request.then(
+            response => {
+                console.log("Dispatch", response)
+                dispatch({
+                    type: FETCH_POSTS,
+                    payload: response.data
+                })
+            }
+            ,error => {
+                console.error("Error", error)
+            }
+        );
     }
-
-    // return (dispatch:any) => {
-    //     request.then(({data}) => {
-    //         console.log("Dispatch", data)
-    //         dispatch({
-    //             type: FETCH_POSTS,
-    //             payload: data
-    //         })
-    //     });
-    // }
 } 
 
-export function createPost(post:BlogPost, cb:() => void):Action<Promise<any>> {
+export function createPost(post:BlogPost, cb:() => void):any {
     const request = axios.post(`${ROOT_URL}/posts${API_KEY}`,post)
-        .then(() => cb());
-
-    return {
-        type: CREATE_POST,
-        payload: request
+    
+    return (dispatch:any) => {
+        request.then(
+            response => { 
+                cb()
+                console.log("Create Post Response", response)
+                return {
+                    type: CREATE_POST,
+                    payload: response.data
+                }
+            }
+        )
     }
+    //     .then(() => cb());
+
+    // return {
+    //     type: CREATE_POST,
+    //     payload: request
+    // }
+
+    
 }
 
 export type fetchPostType = (id:string)=>Action<any>;

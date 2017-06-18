@@ -7,7 +7,7 @@ export interface PostIndexType {
     [id:string]: BlogPost
 }
 
-export default function(state:PostIndexType = {}, action:Action<AxiosResponse | string>):PostIndexType {
+export default function(state:PostIndexType = {}, action:Action<AxiosResponse | PostIndexType |string>):PostIndexType {
 
     switch(action.type) {
 
@@ -19,7 +19,8 @@ export default function(state:PostIndexType = {}, action:Action<AxiosResponse | 
 
             return { ...state, [newPost.id]:newPost }
         case FETCH_POSTS:
-            return _.mapKeys((<AxiosResponse> action.payload).data, 'id') as PostIndexType
+            console.log("Fetch Posts", action)
+            return _.mapKeys((<PostIndexType> action.payload), 'id') as PostIndexType
         case DELETE_POST:
             return (<PostIndexType> _.omit(state, (<string> action.payload)))
         default: 
