@@ -17,13 +17,22 @@ export interface Action<PayloadType> {
 
 export type fetchPostsType = () => Action<AxiosPromise>
 
-export function fetchPosts():Action<AxiosPromise> {
+export function fetchPosts():any {
     const request = axios.get(`${ROOT_URL}/posts${API_KEY}`)
-    console.log("Fetch Posts")
     return {
         type: FETCH_POSTS,
         payload: request
     }
+
+    // return (dispatch:any) => {
+    //     request.then(({data}) => {
+    //         console.log("Dispatch", data)
+    //         dispatch({
+    //             type: FETCH_POSTS,
+    //             payload: data
+    //         })
+    //     });
+    // }
 } 
 
 export function createPost(post:BlogPost, cb:() => void):Action<Promise<any>> {

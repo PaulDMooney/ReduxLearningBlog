@@ -1,21 +1,13 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { fetchPosts, fetchPostsType } from '../actions' 
 import { RouteComponentProps, Link } from "react-router-dom";
 import * as _ from 'lodash';
-import {PostIndex} from '../reducers/post_reducer'
+import {PostIndexType} from '../reducers/post_reducer'
 
-interface PostsIndexProps extends RouteComponentProps<any> {
-    fetchPosts: fetchPostsType
-    posts: PostIndex
+export interface PostsIndexProps {
+    posts: PostIndexType
 }
 
-class PostsIndex extends React.Component<PostsIndexProps, any> {
-
-    componentDidMount() {
-        console.log("Did Mount")
-        this.props.fetchPosts();
-    }
+export default class PostsIndex extends React.Component<PostsIndexProps, any> {
 
     renderPosts() {
         return _.map(this.props.posts, post => {
@@ -30,7 +22,7 @@ class PostsIndex extends React.Component<PostsIndexProps, any> {
     }
 
     render() {
-        console.log(this.props.posts)
+        console.log("Posts Index Render", this.props.posts)
         return(
             <div>
                 <div className="text-xs-right">
@@ -48,8 +40,3 @@ class PostsIndex extends React.Component<PostsIndexProps, any> {
     }
 }
 
-function mapStateToProps(state:any) {
-    return { posts: state.posts }
-}
-
-export default connect(mapStateToProps, { fetchPosts } )(PostsIndex)

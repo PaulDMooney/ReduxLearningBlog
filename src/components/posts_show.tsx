@@ -2,7 +2,7 @@ import * as React from 'react'
 import { RouteComponentProps, Link } from "react-router-dom";
 import { fetchPostType, fetchPost, deletePostType, deletePost } from "../actions";
 import { connect } from "react-redux";
-import { PostIndex } from "../reducers/post_reducer";
+import { PostIndexType } from "../reducers/post_reducer";
 import { BlogPost } from "../model/blog_post";
 
 interface PostsShowProps extends RouteComponentProps<any> {

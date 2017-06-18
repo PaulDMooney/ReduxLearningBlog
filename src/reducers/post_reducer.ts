@@ -3,11 +3,11 @@ import {BlogPost} from '../model/blog_post'
 import { AxiosResponse } from "axios";
 import * as _ from 'lodash';
 
-export interface PostIndex {
+export interface PostIndexType {
     [id:string]: BlogPost
 }
 
-export default function(state:PostIndex = {}, action:Action<AxiosResponse | string>):PostIndex {
+export default function(state:PostIndexType = {}, action:Action<AxiosResponse | string>):PostIndexType {
 
     switch(action.type) {
 
@@ -19,9 +19,9 @@ export default function(state:PostIndex = {}, action:Action<AxiosResponse | stri
 
             return { ...state, [newPost.id]:newPost }
         case FETCH_POSTS:
-            return _.mapKeys((<AxiosResponse> action.payload).data, 'id') as PostIndex
+            return _.mapKeys((<AxiosResponse> action.payload).data, 'id') as PostIndexType
         case DELETE_POST:
-            return (<PostIndex> _.omit(state, (<string> action.payload)))
+            return (<PostIndexType> _.omit(state, (<string> action.payload)))
         default: 
             return state;
     }
